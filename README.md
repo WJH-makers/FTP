@@ -7,12 +7,53 @@
   <img src="https://img.shields.io/badge/C%23-.NET%206.0-512BD4?style=flat-square&logo=dotnet" />
   <img src="https://img.shields.io/badge/WinForms-GUI-239120?style=flat-square" />
   <img src="https://img.shields.io/badge/TCP-File%20Transfer-00A1E9?style=flat-square" />
-  <img src="https://img.shields.io/badge/Feature-Resume%20(断点续传)-green?style=flat-square" />
+  <img src="https://img.shields.io/badge/Feature-Resume%20(%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0)-green?style=flat-square" />
 </p>
 
 ## 📋 Overview
 
-A dual-stack **FTP (File Transfer Protocol)** implementation featuring both **C (WinSock)** and **C# (.NET)** implementations. The project includes a full GUI client (WinForms), console clients, and a TCP-based server — all with **resume (断点续传)** support for large file transfers.
+A dual-stack **FTP** implementation in **C (WinSock)** and **C# (.NET)**, featuring a WinForms GUI client, console clients, and TCP server — all with **resume (断点续传)** support for interrupted large file transfers.
+
+> **Why dual-stack?** The C stack demonstrates low-level socket mechanics (raw WinSock2, manual packet framing); the C# stack shows rapid application development (async TcpListener, WinForms). Together they trace the full spectrum from protocol implementation to user-facing product.
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Windows OS (WinSock2)
+- Visual Studio 2022+ / .NET 6.0 SDK
+- C compiler (MSVC)
+
+### Build & Run
+
+```bash
+# Open solution
+open FTP.sln
+
+# Build all projects
+dotnet build
+
+# Start server
+cd FTPserver
+dotnet run
+
+# Start GUI client
+cd FTP
+dotnet run
+```
+
+### Usage
+
+```bash
+# Server (default port 21)
+FTPserver.exe
+
+# Client - GUI mode
+FTP.exe
+
+# Client - Console mode
+FTPclient.exe <server> <username> <password>
+```
 
 ## ✨ Key Features
 
@@ -55,45 +96,6 @@ Client                      Server
   ├── STOR filename ────────> │
   │ <── ACK ────────────────┤
   └── QUIT ─────────────────> │
-```
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Windows OS (WinSock2)
-- Visual Studio 2022+ / .NET 6.0 SDK
-- C compiler (MSVC)
-
-### Build & Run
-
-```bash
-# Open solution
-open FTP.sln
-
-# Build all projects
-dotnet build
-
-# Start server
-cd FTPserver
-dotnet run
-
-# Start GUI client
-cd FTP
-dotnet run
-```
-
-### Usage
-
-```bash
-# Server (default port 21)
-FTPserver.exe
-
-# Client - GUI mode
-FTP.exe
-
-# Client - Console mode
-FTPclient.exe <server> <username> <password>
 ```
 
 ## 🎓 Academic Context
