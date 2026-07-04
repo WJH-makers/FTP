@@ -76,6 +76,8 @@ public class FtpClient
 
     public void dataConnect()
     {
+        if (datareader != null) datareader.Dispose();
+        if (datawriter != null) datawriter.Dispose();
         datareader = new StreamReader(datastream);
         datawriter = new StreamWriter(datastream) { AutoFlush = true };
     }
@@ -111,22 +113,30 @@ public class FtpClient
         writer.WriteLine($"RETR {remoteFilePath}");
         writer.Flush();
 
+        byte[] lenBuf = new byte[4];
+        int read = datastream.Read(lenBuf, 0, 4);
+        if (read < 4)
+        {
+            Console.WriteLine("Failed to receive file length.");
+            return;
+        }
+        int dataLen = BitConverter.ToInt32(lenBuf, 0);
+
         using (FileStream fs = new FileStream(localFilePath, resumePosition > 0 ? FileMode.Append : FileMode.Create))
         {
             fs.Seek(resumePosition, SeekOrigin.Begin);
             byte[] buffer = new byte[1024];
-            int bytesRead;
             int i = 0;
-            while ((bytesRead = datastream.Read(buffer, 0, buffer.Length)) > 0)
+            int remaining = dataLen;
+            while (remaining > 0)
             {
-                string response = System.Text.Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                if (response.Contains("EOF"))
-                {
-                    break;
-                }
+                int toRead = Math.Min(buffer.Length, remaining);
+                int bytesRead = datastream.Read(buffer, 0, toRead);
+                if (bytesRead <= 0) break;
                 fs.Write(buffer, 0, bytesRead);
                 Console.WriteLine($"Received {bytesRead} bytes  (#{i})");
                 i++;
+                remaining -= bytesRead;
             }
         }
         Console.WriteLine($"文件下载成功: {localFilePath}");
@@ -140,22 +150,13 @@ public class FtpClient
         writer.WriteLine($"STOR {remoteFilePath}");
         writer.Flush();
 
-        using (FileStream fs = new FileStream(localFilePath, FileMode.Open))
-        {
-            fs.Seek(resumePosition, SeekOrigin.Begin);
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            int i = 0;
-            while ((bytesRead = fs.Read(buffer, 0, buffer.Length)) > 0)
-            {
-                datastream.Write(buffer, 0, bytesRead);
-                Console.WriteLine($"Sent {bytesRead} bytes  (#{i})");
-                i++;
-            }
-        }
+        byte[] fileData = File.ReadAllBytes(localFilePath);
+        int dataLen = fileData.Length - (int)resumePosition;
+        byte[] lenPrefix = BitConverter.GetBytes(dataLen);
+        datastream.Write(lenPrefix, 0, 4);
+        datastream.Write(fileData, (int)resumePosition, dataLen);
+
         Console.WriteLine($"文件上传完成: {localFilePath}");
-        byte[] eofBuffer = Encoding.ASCII.GetBytes("EOF");
-        datastream.Write(eofBuffer, 0, eofBuffer.Length);
     }
     public long GetResumePosition(string filePath)
     {

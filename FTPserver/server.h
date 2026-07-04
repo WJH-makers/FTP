@@ -6,8 +6,9 @@
 #include<stdio.h>
 #include "dirent.h"
 #include <string.h>
+#include <stdlib.h>
 
-#define SPORT 8888 //·þÎñÆ÷¶Ë¿ÚºÅ
+#define SPORT 8888 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Úºï¿½
 
 
 
@@ -27,7 +28,7 @@ enum MSGTAG {
 
 
 
-#pragma pack(1)//ÉèÖÃ¶ÔÆë·½Ê½
+#pragma pack(1)//ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ë·½Ê½
 #define PACKET_SIZE (1024-sizeof(int)*3)
 struct MsgHeader {
 	enum MSGTAG msgID;
@@ -37,8 +38,8 @@ struct MsgHeader {
 			char fileName[256];
 		}fileInfo;
 		struct {
-			int nsize;//°üµÄ´óÐ¡
-			int nstart;//°üµÄ±àºÅ
+			int nsize;//ï¿½ï¿½ï¿½Ä´ï¿½Ð¡
+			int nstart;//ï¿½ï¿½ï¿½Ä±ï¿½ï¿½
 			char buf[PACKET_SIZE];
 		}packet;
 	};

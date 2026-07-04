@@ -247,7 +247,8 @@ public class DatabaseManager
             using (var command = new SQLiteCommand(insertUser, connection))
             {
                 command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@Password", password);
+                var hash = Convert.ToBase64String(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(password)));
+                command.Parameters.AddWithValue("@Password", hash);
                 command.ExecuteNonQuery();
             }
         }
@@ -262,7 +263,8 @@ public class DatabaseManager
             using (var command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@Password", password);
+                var hash = Convert.ToBase64String(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(password)));
+                command.Parameters.AddWithValue("@Password", hash);
                 if (Convert.ToInt32(command.ExecuteScalar()) > 0)
                 {
                     Console.WriteLine("老用户，欢迎再次光临!");
@@ -329,6 +331,15 @@ public class FtpServer
         {
             TcpClient client = listener.AcceptTcpClient();
             TcpClient dataclient = datalistener.AcceptTcpClient();
+            var remoteEP = dataclient.Client.RemoteEndPoint as IPEndPoint;
+            var controlEP = client.Client.RemoteEndPoint as IPEndPoint;
+            if (remoteEP?.Address?.ToString() != controlEP?.Address?.ToString())
+            {
+                Console.WriteLine("数据连接来源不匹配，拒绝连接");
+                dataclient.Close();
+                client.Close();
+                continue;
+            }
             Task.Run(() => HandleClient(client, dataclient));
         }
     }
@@ -350,6 +361,7 @@ public class FtpServer
             while (true)
             {
                 string request = reader.ReadLine();
+                if (request == null) return;
                 Console.WriteLine("请求: " + request);
                 string[] tokens = request.Split(' ');
                 string command = tokens[0].ToUpperInvariant();
@@ -381,7 +393,11 @@ public class FtpServer
                         client.Close();
                         return;
                     case "REST":
-                        restPosition = long.Parse(arguments);
+                        if (!long.TryParse(arguments, out restPosition))
+                        {
+                            writer.WriteLine("501 Invalid REST parameter.");
+                            break;
+                        }
                         writer.WriteLine("350 Restart position accepted (" + restPosition + ").");
                         Console.WriteLine("响应: 350 Restart position accepted (" + restPosition + ").");
                         break;
@@ -408,22 +424,35 @@ public class FtpServer
 
     private void HandleStorCommand(string fileName, NetworkStream stream, StreamWriter writer, string currentDir, long restPosition)
     {
-        string filePath = Path.Combine(currentDir, fileName);
+        string filePath = Path.GetFullPath(Path.Combine(currentDir, fileName));
+        if (!filePath.StartsWith(Path.GetFullPath(currentDir), StringComparison.OrdinalIgnoreCase))
+        {
+            writer.WriteLine("550 Path traversal detected.");
+            return;
+        }
+
+        byte[] lenBuf = new byte[4];
+        int read = stream.Read(lenBuf, 0, 4);
+        if (read < 4)
+        {
+            writer.WriteLine("450 Failed to receive file length.");
+            return;
+        }
+        int dataLen = BitConverter.ToInt32(lenBuf, 0);
 
         using (FileStream fs = new FileStream(filePath, restPosition > 0 ? FileMode.Append : FileMode.Create))
         {
             fs.Seek(restPosition, SeekOrigin.Begin);
 
             byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+            int remaining = dataLen;
+            while (remaining > 0)
             {
-                string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                if (dataReceived.Contains("<EOF>"))
-                {
-                    break;
-                }
+                int toRead = Math.Min(buffer.Length, remaining);
+                int bytesRead = stream.Read(buffer, 0, toRead);
+                if (bytesRead <= 0) break;
                 fs.Write(buffer, 0, bytesRead);
+                remaining -= bytesRead;
             }
         }
 
@@ -434,12 +463,21 @@ public class FtpServer
 
     private void HandleRetrCommand(string fileName, NetworkStream stream, StreamWriter writer, string currentDir, long restPosition)
     {
-        string filePath = Path.Combine(currentDir, fileName);
+        string filePath = Path.GetFullPath(Path.Combine(currentDir, fileName));
+        if (!filePath.StartsWith(Path.GetFullPath(currentDir), StringComparison.OrdinalIgnoreCase))
+        {
+            writer.WriteLine("550 Path traversal detected.");
+            return;
+        }
         if (File.Exists(filePath))
         {
             using (FileStream fs = new FileStream(filePath, FileMode.Open))
             {
                 fs.Seek(restPosition, SeekOrigin.Begin);
+
+                long len = fs.Length - restPosition;
+                byte[] lenPrefix = BitConverter.GetBytes((int)len);
+                stream.Write(lenPrefix, 0, 4);
 
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -451,8 +489,6 @@ public class FtpServer
             FileInfo fileInfo = new FileInfo(filePath);
             Console.WriteLine($"文件下载成功: {filePath}");
             dbManager.UpdateFileInfo(filePath, fileInfo.Length, fileInfo.LastWriteTime, 1);
-            writer.WriteLine("<EOF>");
-            writer.Flush();
         }
         else
         {
