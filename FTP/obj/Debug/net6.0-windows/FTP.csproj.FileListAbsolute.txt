@@ -1,0 +1,32 @@
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\bin\Debug\net6.0-windows\FTP.exe
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\bin\Debug\net6.0-windows\FTP.deps.json
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\bin\Debug\net6.0-windows\FTP.runtimeconfig.json
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\bin\Debug\net6.0-windows\FTP.dll
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\bin\Debug\net6.0-windows\FTP.pdb
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.Form1.resources
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.csproj.GenerateResource.cache
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.GeneratedMSBuildEditorConfig.editorconfig
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.AssemblyInfoInputs.cache
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.AssemblyInfo.cs
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.csproj.CoreCompileInputs.cache
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.dll
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\refint\FTP.dll
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.pdb
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\FTP.genruntimeconfig.cache
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTP\obj\Debug\net6.0-windows\ref\FTP.dll
+F:\FTP\FTP\bin\Debug\net6.0-windows\FTP.exe
+F:\FTP\FTP\bin\Debug\net6.0-windows\FTP.deps.json
+F:\FTP\FTP\bin\Debug\net6.0-windows\FTP.runtimeconfig.json
+F:\FTP\FTP\bin\Debug\net6.0-windows\FTP.dll
+F:\FTP\FTP\bin\Debug\net6.0-windows\FTP.pdb
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.Form1.resources
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.csproj.GenerateResource.cache
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.GeneratedMSBuildEditorConfig.editorconfig
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.AssemblyInfoInputs.cache
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.AssemblyInfo.cs
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.csproj.CoreCompileInputs.cache
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.dll
+F:\FTP\FTP\obj\Debug\net6.0-windows\refint\FTP.dll
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.pdb
+F:\FTP\FTP\obj\Debug\net6.0-windows\FTP.genruntimeconfig.cache
+F:\FTP\FTP\obj\Debug\net6.0-windows\ref\FTP.dll

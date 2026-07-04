@@ -1,0 +1,140 @@
+D:\VSproject\FTP\FTPserver\bin\Debug\net6.0\FTPserver.exe
+D:\VSproject\FTP\FTPserver\bin\Debug\net6.0\FTPserver.deps.json
+D:\VSproject\FTP\FTPserver\bin\Debug\net6.0\FTPserver.runtimeconfig.json
+D:\VSproject\FTP\FTPserver\bin\Debug\net6.0\FTPserver.dll
+D:\VSproject\FTP\FTPserver\bin\Debug\net6.0\FTPserver.pdb
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\FTPserver.GeneratedMSBuildEditorConfig.editorconfig
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfoInputs.cache
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfo.cs
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\FTPserver.csproj.CoreCompileInputs.cache
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\FTPserver.dll
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\refint\FTPserver.dll
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\FTPserver.pdb
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\FTPserver.genruntimeconfig.cache
+D:\VSproject\FTP\FTPserver\obj\Debug\net6.0\ref\FTPserver.dll
+D:\VSproject\FTPa\FTPserver\bin\Debug\net6.0\FTPserver.exe
+D:\VSproject\FTPa\FTPserver\bin\Debug\net6.0\FTPserver.deps.json
+D:\VSproject\FTPa\FTPserver\bin\Debug\net6.0\FTPserver.runtimeconfig.json
+D:\VSproject\FTPa\FTPserver\bin\Debug\net6.0\FTPserver.dll
+D:\VSproject\FTPa\FTPserver\bin\Debug\net6.0\FTPserver.pdb
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\FTPserver.GeneratedMSBuildEditorConfig.editorconfig
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfoInputs.cache
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfo.cs
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\FTPserver.csproj.CoreCompileInputs.cache
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\FTPserver.dll
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\refint\FTPserver.dll
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\FTPserver.pdb
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\FTPserver.genruntimeconfig.cache
+D:\VSproject\FTPa\FTPserver\obj\Debug\net6.0\ref\FTPserver.dll
+D:\VSproject\FTPz\FTPserver\bin\Debug\net6.0\FTPserver.exe
+D:\VSproject\FTPz\FTPserver\bin\Debug\net6.0\FTPserver.deps.json
+D:\VSproject\FTPz\FTPserver\bin\Debug\net6.0\FTPserver.runtimeconfig.json
+D:\VSproject\FTPz\FTPserver\bin\Debug\net6.0\FTPserver.dll
+D:\VSproject\FTPz\FTPserver\bin\Debug\net6.0\FTPserver.pdb
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\FTPserver.GeneratedMSBuildEditorConfig.editorconfig
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfoInputs.cache
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfo.cs
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\FTPserver.csproj.CoreCompileInputs.cache
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\FTPserver.dll
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\refint\FTPserver.dll
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\FTPserver.pdb
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\FTPserver.genruntimeconfig.cache
+D:\VSproject\FTPz\FTPserver\obj\Debug\net6.0\ref\FTPserver.dll
+D:\桌面\FTP\FTPserver\bin\Debug\net6.0\FTPserver.exe
+D:\桌面\FTP\FTPserver\bin\Debug\net6.0\FTPserver.deps.json
+D:\桌面\FTP\FTPserver\bin\Debug\net6.0\FTPserver.runtimeconfig.json
+D:\桌面\FTP\FTPserver\bin\Debug\net6.0\FTPserver.dll
+D:\桌面\FTP\FTPserver\bin\Debug\net6.0\FTPserver.pdb
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\FTPserver.GeneratedMSBuildEditorConfig.editorconfig
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfoInputs.cache
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfo.cs
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\FTPserver.csproj.CoreCompileInputs.cache
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\FTPserver.dll
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\refint\FTPserver.dll
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\FTPserver.pdb
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\FTPserver.genruntimeconfig.cache
+D:\桌面\FTP\FTPserver\obj\Debug\net6.0\ref\FTPserver.dll
+G:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.exe
+G:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.deps.json
+G:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.runtimeconfig.json
+G:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.dll
+G:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.pdb
+G:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.GeneratedMSBuildEditorConfig.editorconfig
+G:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfoInputs.cache
+G:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfo.cs
+G:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.csproj.CoreCompileInputs.cache
+G:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.dll
+G:\FTP\FTPserver\obj\Debug\net6.0\refint\FTPserver.dll
+G:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.pdb
+G:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.genruntimeconfig.cache
+G:\FTP\FTPserver\obj\Debug\net6.0\ref\FTPserver.dll
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\bin\Debug\net6.0\FTPserver.exe
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\bin\Debug\net6.0\FTPserver.deps.json
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\bin\Debug\net6.0\FTPserver.runtimeconfig.json
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\bin\Debug\net6.0\FTPserver.dll
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\bin\Debug\net6.0\FTPserver.pdb
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\FTPserver.GeneratedMSBuildEditorConfig.editorconfig
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfoInputs.cache
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfo.cs
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\FTPserver.csproj.CoreCompileInputs.cache
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\FTPserver.dll
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\refint\FTPserver.dll
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\FTPserver.pdb
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\FTPserver.genruntimeconfig.cache
+D:\桌面\大二下\计网实验\FTP3\FTP\FTPserver\obj\Debug\net6.0\ref\FTPserver.dll
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\bin\Debug\net6.0\FTPserver.exe
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\bin\Debug\net6.0\FTPserver.deps.json
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\bin\Debug\net6.0\FTPserver.runtimeconfig.json
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\bin\Debug\net6.0\FTPserver.dll
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\bin\Debug\net6.0\FTPserver.pdb
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\FTPserver.GeneratedMSBuildEditorConfig.editorconfig
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfoInputs.cache
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfo.cs
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\FTPserver.csproj.CoreCompileInputs.cache
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\FTPserver.dll
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\refint\FTPserver.dll
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\FTPserver.pdb
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\FTPserver.genruntimeconfig.cache
+D:\桌面\大二下\计网实验\前端\.net 6\FTP\FTPserver\obj\Debug\net6.0\ref\FTPserver.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.exe
+F:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.deps.json
+F:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.runtimeconfig.json
+F:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\FTPserver.pdb
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.GeneratedMSBuildEditorConfig.editorconfig
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfoInputs.cache
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.AssemblyInfo.cs
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.csproj.CoreCompileInputs.cache
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.dll
+F:\FTP\FTPserver\obj\Debug\net6.0\refint\FTPserver.dll
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.pdb
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.genruntimeconfig.cache
+F:\FTP\FTPserver\obj\Debug\net6.0\ref\FTPserver.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\EntityFramework.SqlServer.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\EntityFramework.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.Data.SQLite.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.CodeDom.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.Data.SqlClient.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.Data.SQLite.EF6.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.Drawing.Common.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.Security.Permissions.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\System.Windows.Extensions.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\linux-x64\native\SQLite.Interop.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\osx-x64\native\SQLite.Interop.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win-x64\native\SQLite.Interop.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win-x86\native\SQLite.Interop.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+F:\FTP\FTPserver\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.csproj.AssemblyReference.cache
+F:\FTP\FTPserver\obj\Debug\net6.0\FTPserver.csproj.Up2Date
