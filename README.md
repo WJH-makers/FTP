@@ -2,13 +2,12 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:141e30,100:243b55&height=180&section=header&text=FTP%20Client-Server&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=File%20Transfer%20Protocol%20%E2%80%93%20C%20(WinSock)%20%2B%20C%23%20(.NET)%20Dual%20Stack&descAlignY=55&descAlign=50" width="100%" />
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/C-WinSock2-00599C?style=flat-square&logo=c" />
-  <img src="https://img.shields.io/badge/C%23-.NET%206.0-512BD4?style=flat-square&logo=dotnet" />
-  <img src="https://img.shields.io/badge/WinForms-GUI-239120?style=flat-square" />
-  <img src="https://img.shields.io/badge/TCP-File%20Transfer-00A1E9?style=flat-square" />
-  <img src="https://img.shields.io/badge/Feature-Resume%20(%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0)-green?style=flat-square" />
-</p>
+| Category | Stack |
+|----------|-------|
+| **Language** | C (WinSock2), C# (.NET 6.0) |
+| **UI** | Windows Forms |
+| **Protocol** | TCP/IP, custom packet framing |
+| **Platform** | Windows only |
 
 ## 📋 Overview
 
@@ -97,6 +96,18 @@ Client                      Server
   │ <── ACK ────────────────┤
   └── QUIT ─────────────────> │
 ```
+
+## ❓ FAQ
+
+| Question | Answer |
+|----------|--------|
+| **Can I use this over the internet?** | Designed for LAN — no encryption or NAT traversal. Add TLS for WAN use. |
+| **How does resume work?** | Client saves byte offset on interrupt; RETR with offset header tells server to skip already-transferred data. |
+| **Which OS is supported?** | Windows only (WinSock2 dependency). Linux port would require POSIX socket rewrite. |
+
+## 🔗 See Also
+
+- [File Management Tool](/WJH-makers/FileManagementTool) — Higher-level file operations (compress, scan, git) over a web interface
 
 ## 🎓 Academic Context
 
