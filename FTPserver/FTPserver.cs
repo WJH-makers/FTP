@@ -362,7 +362,7 @@ public class FtpServer
             {
                 string request = reader.ReadLine();
                 if (request == null) return;
-                Console.WriteLine("请求: " + request);
+                Console.WriteLine("请求: " + (request.StartsWith("PASS") ? "PASS ***" : request));
                 string[] tokens = request.Split(' ');
                 string command = tokens[0].ToUpperInvariant();
                 string arguments = tokens.Length > 1 ? request.Substring(command.Length + 1).Trim() : null;
@@ -431,24 +431,24 @@ public class FtpServer
             return;
         }
 
-        byte[] lenBuf = new byte[4];
-        int read = stream.Read(lenBuf, 0, 4);
-        if (read < 4)
+        byte[] lenBuf = new byte[8];
+        int read = stream.Read(lenBuf, 0, 8);
+        if (read < 8)
         {
             writer.WriteLine("450 Failed to receive file length.");
             return;
         }
-        int dataLen = BitConverter.ToInt32(lenBuf, 0);
+        long dataLen = BitConverter.ToInt64(lenBuf, 0);
 
         using (FileStream fs = new FileStream(filePath, restPosition > 0 ? FileMode.Append : FileMode.Create))
         {
             fs.Seek(restPosition, SeekOrigin.Begin);
 
             byte[] buffer = new byte[1024];
-            int remaining = dataLen;
+            long remaining = dataLen;
             while (remaining > 0)
             {
-                int toRead = Math.Min(buffer.Length, remaining);
+                int toRead = (int)Math.Min(buffer.Length, remaining);
                 int bytesRead = stream.Read(buffer, 0, toRead);
                 if (bytesRead <= 0) break;
                 fs.Write(buffer, 0, bytesRead);
@@ -476,8 +476,8 @@ public class FtpServer
                 fs.Seek(restPosition, SeekOrigin.Begin);
 
                 long len = fs.Length - restPosition;
-                byte[] lenPrefix = BitConverter.GetBytes((int)len);
-                stream.Write(lenPrefix, 0, 4);
+                byte[] lenPrefix = BitConverter.GetBytes(len);
+                stream.Write(lenPrefix, 0, 8);
 
                 byte[] buffer = new byte[1024];
                 int bytesRead;

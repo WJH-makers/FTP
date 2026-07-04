@@ -7,6 +7,7 @@
 #include "dirent.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #define SPORT 8888 //�������˿ں�
 
@@ -60,4 +61,5 @@ bool processMsg(SOCKET);
 bool readFile(SOCKET, struct MsgHeader*);
 
 bool sendFile(SOCKET);
+bool recvFile(SOCKET, struct MsgHeader*);
 

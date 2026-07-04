@@ -143,22 +143,19 @@ namespace FTP
                     using (FileStream fs = new FileStream(localFilePath, localFileSize > 0 ? FileMode.Append : FileMode.Create))
                     {
                         fs.Seek(localFileSize, SeekOrigin.Begin);
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-                        int i = 0;
-                        while ((bytesRead = datastream.Read(buffer, 0, buffer.Length)) > 0)
+                        // 读取8字节长度前缀
+                        byte[] lenBuf = new byte[8];
+                        int read = datastream.Read(lenBuf, 0, 8);
+                        long fileLen = BitConverter.ToInt64(lenBuf, 0);
+                        byte[] buffer = new byte[8192];
+                        long remaining = fileLen;
+                        while (remaining > 0)
                         {
-                            string check = System.Text.Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                            if (check.Contains("<EOF>"))//添加数据包大小为5的判断
-                            {
-                                fs.Write(buffer, 0, bytesRead - 5);
-                                break;
-                            }
+                            int toRead = (int)Math.Min(remaining, buffer.Length);
+                            int bytesRead = datastream.Read(buffer, 0, toRead);
+                            if (bytesRead == 0) break;
                             fs.Write(buffer, 0, bytesRead);
-                            Console.WriteLine($"Received {bytesRead} bytes  (#{i})");
-                            i++;
-
-
+                            remaining -= bytesRead;
                         }
                     }
                     writer.WriteLine("complete");
@@ -232,21 +229,19 @@ namespace FTP
             using (FileStream fs = new FileStream(localFilePath, FileMode.Create))
             {
                 fs.Seek(resumePosition, SeekOrigin.Begin);
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                int i = 0;
-                while ((bytesRead = datastream.Read(buffer, 0, buffer.Length)) > 0)
+                // 读取8字节长度前缀
+                byte[] lenBuf = new byte[8];
+                int read = datastream.Read(lenBuf, 0, 8);
+                long fileLen = BitConverter.ToInt64(lenBuf, 0);
+                byte[] buffer = new byte[8192];
+                long remaining = fileLen;
+                while (remaining > 0)
                 {
-                    string response = System.Text.Encoding.ASCII.GetString(buffer, 0, bytesRead);
-
-                    if (response.Contains("<EOF>"))//添加数据包大小为5的判断，测试一下需不需要
-                    {
-                        fs.Write(buffer, 0, bytesRead - 5);
-                        break;
-                    }
+                    int toRead = (int)Math.Min(remaining, buffer.Length);
+                    int bytesRead = datastream.Read(buffer, 0, toRead);
+                    if (bytesRead == 0) break;
                     fs.Write(buffer, 0, bytesRead);
-                    Console.WriteLine($"Received {bytesRead} bytes  (#{i})");
-                    i++;
+                    remaining -= bytesRead;
                 }
             }
             writer.WriteLine("complete");

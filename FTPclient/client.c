@@ -1,11 +1,32 @@
 #include"client.h"
 char recvBuf[1024];
 char* fileBuf;
-int fileSize;
+int64_t fileSize;
 char fileName[1024];
 char sendFile[1024];
+
+int recv_all(SOCKET s, char* buf, int len) {
+	int total = 0;
+	while (total < len) {
+		int n = recv(s, buf + total, len - total, 0);
+		if (n == SOCKET_ERROR || n == 0) return -1;
+		total += n;
+	}
+	return total;
+}
+
+int send_all(SOCKET s, const char* buf, int len) {
+	int total = 0;
+	while (total < len) {
+		int n = send(s, buf + total, len - total, 0);
+		if (n == SOCKET_ERROR) return -1;
+		total += n;
+	}
+	return total;
+}
+
 int main() {
-	initSocket();
+	if (!initSocket()) return 1;
 	connectTohost();
 	closeSocket();
 	return 0;
@@ -57,17 +78,16 @@ void connectTohost() {
 
 
 bool processMsg(SOCKET s) {
-	recv(s, recvBuf, 1024, 0);
+	if (recv_all(s, recvBuf, 1024) == -1) {
+		printf("接收失败\n");
+		return false;
+	}
 	struct MsgHeader* msg = (struct MsgHeader*)recvBuf;
 	switch (msg->msgID)
 	{
 		//���յ����������ϴ����� �����ϴ����ļ���С
 	case MSG_RECV:
-
-
-
-
-
+		sendFileFromDisk(s, sendFile);
 		break;
 	case MSG_OPEN_FAIL:
 		download(s);
@@ -95,7 +115,7 @@ void download(SOCKET s) {
 	gets_s(fileName, 1023);//�����ļ���
 	struct MsgHeader file = { .msgID = MSG_FILENAME };
 	strcpy(file.fileInfo.fileName, fileName);//ʹ�û�ȡ�ļ���û������
-	send(s, (char*)&file, sizeof(struct MsgHeader), 0);// +1����Ϊ'\0'(���ַ�)
+	send_all(s, (char*)&file, sizeof(struct MsgHeader));// +1����Ϊ'\0'(���ַ�)
 }
 
 //�ϴ��ļ� �ͻ��˸��߷���˽�Ҫ�ϴ��ļ�
@@ -103,7 +123,8 @@ void update(SOCKET s) {
 	gets_s(sendFile, 1023);
 	struct MsgHeader file = { .msgID = MSG_UPLOAD };
 	strcpy(file.fileInfo.fileName, sendFile);
-	send(s, (char*)&file, sizeof(struct MsgHeader), 0);
+	send_all(s, (char*)&file, sizeof(struct MsgHeader));
+	// 接收 MSG_RECV �Ͽɺ��ļ����ݻ��� processMsg �е� MSG_RECV ������ sendFileFromDisk ����
 }
 
 
@@ -128,14 +149,18 @@ void update(SOCKET s) {
 void readyread(SOCKET s, struct MsgHeader* msg) {
 	fileSize = msg->fileInfo.fileSize;
 	strcpy(fileName, msg->fileInfo.fileName);
-	fileBuf = calloc(fileSize + 1, sizeof(char));//�����ڴ�ռ�
+	if (fileSize > SIZE_MAX / sizeof(char) - 1) {
+		printf("�ļ�����\n");
+		return;
+	}
+	fileBuf = calloc((size_t)(fileSize + 1), sizeof(char));//�����ڴ�ռ�
 	if (fileBuf == NULL) {
 		printf("�ڴ治�㣬������\n");
 		return;
 	}
 	else {
 		struct MsgHeader Msg = { .msgID = MSG_SEND };
-		if (send(s, (char*)&Msg, sizeof(struct MsgHeader), 0) == SOCKET_ERROR) {
+		if (send_all(s, (char*)&Msg, sizeof(struct MsgHeader)) == -1) {
 			printf("send error: %d", WSAGetLastError());
 			return;
 		}
@@ -152,14 +177,16 @@ bool writeFile(SOCKET s, struct MsgHeader* Msg) {
 	int nsize = Msg->packet.nsize;
 	int nstart = Msg->packet.nstart;
 	memcpy(fileBuf + Msg->packet.nstart, Msg->packet.buf, Msg->packet.nsize);
-	printf("packet: %d  %d\n", nstart + nsize, fileSize);
+	printf("packet: %d  %d\n", nstart + nsize, (int)fileSize);
 
 
 
 	//�ϵ��ش�
-	struct MsgHeader sleep = { .msgID = MSG_SLEEP };
+	struct MsgHeader sleep;
+	memset(&sleep, 0, sizeof(sleep));
+	sleep.msgID = MSG_SLEEP;
 	printf("��ȴ�0.1��!\n");
-	send(s, (char*)&sleep, sizeof(struct MsgHeader), 0);
+	send_all(s, (char*)&sleep, sizeof(struct MsgHeader));
 
 
 	//�ڰ˲� �����ļ��ɹ�
@@ -169,14 +196,60 @@ bool writeFile(SOCKET s, struct MsgHeader* Msg) {
 			printf("write file error ..\n");
 			return false;
 		}
-		fwrite(fileBuf, sizeof(char), fileSize, pwrite);
+		fwrite(fileBuf, sizeof(char), (size_t)fileSize, pwrite);
 		fclose(pwrite);
 		free(fileBuf);
 		fileBuf = NULL;
-		struct MsgHeader msg = { .msgID = MSG_SUCCESS };
-		send(s, (char*)&msg, sizeof(struct MsgHeader), 0);
+		struct MsgHeader msg;
+		memset(&msg, 0, sizeof(msg));
+		msg.msgID = MSG_SUCCESS;
+		send_all(s, (char*)&msg, sizeof(struct MsgHeader));
 		printf("�������\n");
 		return true;
 	}
 	return true;
+}
+
+void sendFileFromDisk(SOCKET s, char* path) {
+	FILE* f = fopen(path, "rb");
+	if (f == NULL) {
+		printf("无法打开文件: %s\n", path);
+		return;
+	}
+
+	_fseeki64(f, 0, SEEK_END);
+	int64_t fsize = _ftelli64(f);
+	_fseeki64(f, 0, SEEK_SET);
+
+	char* fbuf = (char*)calloc((size_t)(fsize + 1), sizeof(char));
+	if (fbuf == NULL) {
+		printf("内存不足\n");
+		fclose(f);
+		return;
+	}
+	fread(fbuf, sizeof(char), (size_t)fsize, f);
+	fclose(f);
+
+	struct MsgHeader pkt;
+	memset(&pkt, 0, sizeof(pkt));
+
+	for (int64_t i = 0; i < fsize; i += PACKET_SIZE) {
+		pkt.msgID = MSG_READY;
+		pkt.packet.nstart = (int)i;
+		if (i + PACKET_SIZE + 1 > fsize) {
+			pkt.packet.nsize = (int)(fsize - i);
+		} else {
+			pkt.packet.nsize = PACKET_SIZE;
+		}
+		memcpy(pkt.packet.buf, fbuf + i, pkt.packet.nsize);
+		send_all(s, (char*)&pkt, sizeof(struct MsgHeader));
+
+		char ack[1024] = {0};
+		recv_all(s, ack, 1024);
+	}
+
+	free(fbuf);
+	memset(&pkt, 0, sizeof(pkt));
+	pkt.msgID = MSG_SUCCESS;
+	send_all(s, (char*)&pkt, sizeof(struct MsgHeader));
 }

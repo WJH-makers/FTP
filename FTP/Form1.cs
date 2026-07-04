@@ -57,28 +57,37 @@ namespace FTP
 
         }
 
-        private void button_Connect_Click(object sender, EventArgs e)
+        private async void button_Connect_Click(object sender, EventArgs e)
         {
+            button_Connect.Enabled = false;
             String textServer = txtServer.Text;
             String textUserName = txtUserName.Text;
             String textPassword = txtPassword.Text;
-            ftpClient = new FtpClient(textServer, textUserName, textPassword);
-            isConnect = ftpClient.Connect();
-            if (isConnect)
+            bool connected = await Task.Run(() =>
             {
-                var files = ftpClient.ListDirectory(" ");
+                var client = new FtpClient(textServer, textUserName, textPassword);
+                bool ok = client.Connect();
+                if (ok)
+                {
+                    ftpClient = client;
+                }
+                return ok;
+            });
+            if (connected)
+            {
+                var files = await Task.Run(() => ftpClient.ListDirectory(" "));
                 DisplayFilesInListView(files);
-                MessageBox.Show("Á¬½Ó³É¹¦£¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                MessageBox.Show("ï¿½ï¿½ï¿½Ó³É¹ï¿½ï¿½ï¿½", "ï¿½ï¿½Ê¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("ÎÞ·¨Á¬½Óµ½FTP·þÎñÆ÷", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Óµï¿½FTPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½Ê¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            button_Connect.Enabled = true;
         }
         private void DisplayFilesInListView(List<string> files)
         {
-            list_Dictionary.Items.Clear(); // Çå¿ÕÏÖÓÐµÄÏîÄ¿
+            list_Dictionary.Items.Clear(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Ä¿
             foreach (string file in files)
             {
                 ListViewItem item = new ListViewItem(file);
@@ -96,12 +105,12 @@ namespace FTP
             if (!resumeOpen)
             {
                 resumeOpen = true;
-                MessageBox.Show("¿ªÆô¶ÏµãÐø´«¹¦ÄÜ £¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½", "ï¿½ï¿½Ê¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 resumeOpen = false;
-                MessageBox.Show("¹Ø±Õ¶ÏµãÐø´«¹¦ÄÜ £¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("ï¿½Ø±Õ¶Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½", "ï¿½ï¿½Ê¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -110,49 +119,57 @@ namespace FTP
             ftpClient.dataDisconnect();
         }
 
-        private void button_Upload_Click(object sender, EventArgs e)
+        private async void button_Upload_Click(object sender, EventArgs e)
         {
             string localUploadFilePath = txtUpAddress.Text;
             string remoteUploadFilePath = txtUpFileName.Text;
             if (isConnect)
             {
-                if (resumeOpen)
+                button_Upload.Enabled = false;
+                await Task.Run(() =>
                 {
-                    ftpClient.UploadFileWithResume(localUploadFilePath, remoteUploadFilePath);
-                    MessageBox.Show("ÎÄ¼þÉÏ´«³É¹¦ £¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    ftpClient.UploadFile(localUploadFilePath, remoteUploadFilePath);
-                    MessageBox.Show("ÎÄ¼þÉÏ´«³É¹¦ £¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                    if (resumeOpen)
+                    {
+                        ftpClient.UploadFileWithResume(localUploadFilePath, remoteUploadFilePath);
+                    }
+                    else
+                    {
+                        ftpClient.UploadFile(localUploadFilePath, remoteUploadFilePath);
+                    }
+                });
+                MessageBox.Show("ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½É¹ï¿½ ï¿½ï¿½", "ï¿½ï¿½Ê¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                button_Upload.Enabled = true;
             }
             else
             {
-                MessageBox.Show("Î´Á¬½Ó·þÎñÆ÷ £¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Î´ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½", "ï¿½ï¿½Ê¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void button_Download_Click(object sender, EventArgs e)
+        private async void button_Download_Click(object sender, EventArgs e)
         {
             string remoteDownloadFilePath = txtDownAddress.Text;
             string localDownloadFilePath = txtDownPath.Text;
             if (isConnect)
             {
-                if (resumeOpen)
+                button_Download.Enabled = false;
+                await Task.Run(() =>
                 {
-                    ftpClient.DownloadFileWithResume(remoteDownloadFilePath, localDownloadFilePath);
-                    MessageBox.Show("ÎÄ¼þÏÂÔØ³É¹¦ £¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    ftpClient.DownloadFile(remoteDownloadFilePath, localDownloadFilePath);
-                    MessageBox.Show("ÎÄ¼þÏÂÔØ³É¹¦ £¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                    if (resumeOpen)
+                    {
+                        ftpClient.DownloadFileWithResume(remoteDownloadFilePath, localDownloadFilePath);
+                    }
+                    else
+                    {
+                        ftpClient.DownloadFile(remoteDownloadFilePath, localDownloadFilePath);
+                    }
+                });
+                MessageBox.Show("ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ø³É¹ï¿½ ï¿½ï¿½", "ï¿½ï¿½Ê¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                button_Download.Enabled = true;
             }
             else
             {
-                MessageBox.Show("Î´Á¬½Ó·þÎñÆ÷ £¡", "ÌáÊ¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Î´ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½", "ï¿½ï¿½Ê¾", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
