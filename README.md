@@ -1,117 +1,78 @@
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:141e30,100:243b55&height=180&section=header&text=FTP%20Client-Server&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=File%20Transfer%20Protocol%20%E2%80%93%20C%20(WinSock)%20%2B%20C%23%20(.NET)%20Dual%20Stack&descAlignY=55&descAlign=50" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:141e30,100:243b55&height=180&section=header&text=FTP%20%E5%AE%A2%E6%88%B7%E7%AB%AF-%E6%9C%8D%E5%8A%A1%E7%AB%AF&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=C%20(WinSock)%20%2B%20C%23%20(.NET)%20%E5%8F%8C%E6%A0%88%E5%AE%9E%E7%8E%B0&descAlignY=55&descAlign=50" width="100%" />
 </p>
 
-| Category | Stack |
-|----------|-------|
-| **Language** | C (WinSock2), C# (.NET 6.0) |
-| **UI** | Windows Forms |
-| **Protocol** | TCP/IP, custom packet framing |
-| **Platform** | Windows only |
+| 类别 | 技术栈 |
+|------|--------|
+| **语言** | C (WinSock2), C# (.NET 6.0) |
+| **界面** | Windows Forms |
+| **协议** | TCP/IP，自定义包帧 |
+| **平台** | Windows |
 
-## 📋 Overview
+## 📋 简介
 
-A dual-stack **FTP** implementation in **C (WinSock)** and **C# (.NET)**, featuring a WinForms GUI client, console clients, and TCP server — all with **resume (断点续传)** support for interrupted large file transfers.
+C (WinSock) 和 C# (.NET) 双栈实现 FTP 文件传输，含 WinForms 图形客户端、命令行客户端和 TCP 服务器，支持**断点续传**功能。
 
-> **Why dual-stack?** The C stack demonstrates low-level socket mechanics (raw WinSock2, manual packet framing); the C# stack shows rapid application development (async TcpListener, WinForms). Together they trace the full spectrum from protocol implementation to user-facing product.
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Windows OS (WinSock2)
-- Visual Studio 2022+ / .NET 6.0 SDK
-- C compiler (MSVC)
-
-### Build & Run
+## 🚀 快速开始
 
 ```bash
-# Open solution
+# 打开解决方案
 open FTP.sln
 
-# Build all projects
+# 构建所有项目
 dotnet build
 
-# Start server
-cd FTPserver
-dotnet run
+# 启动服务器
+cd FTPserver && dotnet run
 
-# Start GUI client
-cd FTP
-dotnet run
+# 启动图形客户端
+cd FTP && dotnet run
+
+# 命令行客户端
+FTPclient.exe <服务器> <用户名> <密码>
 ```
 
-### Usage
+## ✨ 功能特性
 
-```bash
-# Server (default port 21)
-FTPserver.exe
+- **双栈实现**：C 底层 WinSock + C# .NET 高层封装
+- **断点续传**：中断传输后可从断点继续
+- **图形界面**：Windows Forms 文件操作界面
+- **多客户端**：WinForms 图形、C# 命令行、C 控制台三种模式
+- **FTP 命令**：连接、列目录、上传、下载
 
-# Client - GUI mode
-FTP.exe
-
-# Client - Console mode
-FTPclient.exe <server> <username> <password>
-```
-
-## ✨ Key Features
-
-- **Dual Implementation**: C (low-level WinSock) + C# (.NET high-level) stacks
-- **Resume Support**: Download/upload with resume for interrupted transfers
-- **GUI Client**: Windows Forms interface for easy file operations
-- **Multi-Client**: WinForms GUI, C# console, C console clients
-- **FTP Commands**: Connect, list directories, upload, download
-- **TCP Protocol**: Custom packet-based protocol over TCP sockets
-
-## 🏗️ Architecture
+## 🏗️ 项目结构
 
 ```
 FTP/
-├── FTP/                        # C# WinForms GUI Client
-│   ├── Form1.cs                # Main UI (connect, browse, transfer)
-│   ├── FTPclient.cs            # FTP client protocol logic
-│   └── Program.cs              # Application entry point
-├── FTPclient/                  # C Console Client (WinSock)
-│   ├── client.c / client.h     # Socket operations & file transfer
-│   └── Program.cs              # .NET wrapper entry
-├── FTPserver/                  # C Console Server (WinSock)
-│   ├── server.c / server.h     # TCP listen, handle clients, file I/O
-│   └── Program.cs              # .NET server with TcpListener
-├── test/                       # Test utilities
-└── FTP.sln                     # Visual Studio solution
+├── FTP/                    # C# WinForms 图形客户端
+│   ├── Form1.cs            # 主界面（连接、浏览、传输）
+│   ├── FTPclient.cs        # FTP 协议逻辑
+│   └── Program.cs
+├── FTPclient/              # C 命令行客户端（WinSock）
+│   ├── client.c            # 套接字操作与文件传输
+│   └── Program.cs          # .NET 包装入口
+├── FTPserver/              # C 命令行服务器（WinSock）
+│   ├── server.c            # TCP 监听、客户端处理、文件 I/O
+│   └── Program.cs          # .NET TcpListener 服务器
+├── test/                   # 测试工具
+└── FTP.sln
 ```
 
-### Protocol Flow
+## ❓ 常见问题
 
-```
-Client                      Server
-  │                           │
-  ├── Connect (TCP) ───────> │
-  │ <── Welcome ─────────────┤
-  ├── LIST ─────────────────> │
-  │ <── Directory Listing ───┤
-  ├── RETR filename ────────> │
-  │ <── File Data (chunks) ──┤
-  ├── STOR filename ────────> │
-  │ <── ACK ────────────────┤
-  └── QUIT ─────────────────> │
-```
+| 问题 | 回答 |
+|------|------|
+| **可以在互联网上使用吗？** | 无加密/NAT 穿透，仅限局域网；添加 TLS 可用于广域网 |
+| **断点续传原理？** | 客户端记录中断时的字节偏移，重连时发送偏移头跳过已传数据 |
+| **支持哪些系统？** | 仅 Windows（依赖 WinSock2），Linux 需移植 POSIX socket |
 
-## ❓ FAQ
+## 🔗 相关项目
 
-| Question | Answer |
-|----------|--------|
-| **Can I use this over the internet?** | Designed for LAN — no encryption or NAT traversal. Add TLS for WAN use. |
-| **How does resume work?** | Client saves byte offset on interrupt; RETR with offset header tells server to skip already-transferred data. |
-| **Which OS is supported?** | Windows only (WinSock2 dependency). Linux port would require POSIX socket rewrite. |
+- [File Management](/WJH-makers/FileManagementTool) — 更上层的 Web 文件操作（压缩、扫描、Git）
 
-## 🔗 See Also
+## 🎓 课程背景
 
-- [File Management Tool](/WJH-makers/FileManagementTool) — Higher-level file operations (compress, scan, git) over a web interface
-
-## 🎓 Academic Context
-
-This project was completed for the **Computer Networks** course at **Wuhan University**, demonstrating TCP socket programming, protocol design, and file transfer mechanics.
+武汉大学计算机学院 · 计算机网络课程设计。
 
 ---
 
